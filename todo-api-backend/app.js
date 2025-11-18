@@ -1,6 +1,5 @@
 const express = require("express")
 const app = express()
-const path = require('path')
 const cors = require('cors')
 const mongoose = require('mongoose')
 
@@ -30,10 +29,7 @@ app.use(express.json())
 app.use(cors())
 
 // Servir frontend
-app.use(express.static(path.join(__dirname, 'dist')))
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'))
-})
+app.use(express.static('dist'))
 
 // Middleware personalizado para registrar las solicitudes entrantes
 app.use(middleware.requestLogger)
