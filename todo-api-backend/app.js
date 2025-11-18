@@ -1,5 +1,6 @@
 const express = require("express")
 const app = express()
+const path = require('path')
 const cors = require('cors')
 const mongoose = require('mongoose')
 
@@ -27,6 +28,12 @@ app.use(express.json())
 
 // Habilita CORS para permitir que el frontend acceda al backend
 app.use(cors())
+
+// Servir frontend
+app.use(express.static(path.join(__dirname, 'dist')))
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'))
+})
 
 // Middleware personalizado para registrar las solicitudes entrantes
 app.use(middleware.requestLogger)
